@@ -17,6 +17,7 @@ import profile from "../app/images/profile.img-removebg-preview.png"
 import { MdWhatsapp } from 'react-icons/md'
 import codify from "../app/images/Screenshot 2024-11-28 225632.png"
 import portfolio from "../app/images/Screenshot 2024-11-28 230533.png"
+import ecommerce from "../app/images/ecommerce.jpeg"
 const Logo = () => (
   <motion.div
     className="flex items-center space-x-2"
@@ -27,7 +28,7 @@ const Logo = () => (
     <div className="w-10 h-10 bg-sky-500 dark:bg-sky-400 rounded-full flex items-center justify-center">
       <span className="text-white font-bold text-xl">C</span>
     </div>
-    <span className="text-2xl font-semibold text-sky-500 dark:text-sky-400">Code With Caleb</span>
+    <span className="text-2xl font-semibold text-sky-500 dark:text-sky-400 max:sm:hidden">Code With Caleb</span>
   </motion.div>
 )
 
@@ -261,7 +262,7 @@ export default function Component() {
             <ProjectCard
               title="E-commerce Platform"
               description="A full-featured online store built with Godaddy , a no-code e-commerce website builder."
-              image={codify}
+              image={ecommerce}
               link="https://ladrac.com"
             />
             <ProjectCard
