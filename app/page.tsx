@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react'
-import { motion, useAnimation, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Moon, Sun, ArrowUp, Github, Linkedin, Mail, ExternalLink } from 'lucide-react'
@@ -28,7 +28,7 @@ const Logo = () => (
     <div className="w-10 h-10 bg-sky-500 dark:bg-sky-400 rounded-full flex items-center justify-center">
       <span className="text-white font-bold text-xl">C</span>
     </div>
-    <span className="text-2xl font-semibold text-sky-500 dark:text-sky-400 max:sm:hidden">Code With Caleb</span>
+    <span className="text-2xl font-semibold text-sky-500 dark:text-sky-400 max-sm:hidden">Code With Caleb</span>
   </motion.div>
 )
 
