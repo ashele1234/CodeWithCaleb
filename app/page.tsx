@@ -317,7 +317,7 @@ export default function Component() {
               whileTap={{ scale: 0.95 }}
             >
               <Button
-                onClick={() => window.location.href = 'mailto:calebashele@gmail.com.com'}
+                onClick={() => window.location.href = 'mailto:calebashele@gmail.com'}
                 size="lg"
                 className="bg-sky-500 text-white hover:bg-sky-600 dark:bg-sky-400 dark:text-black dark:hover:bg-sky-300"
               >
