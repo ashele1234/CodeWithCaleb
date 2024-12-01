@@ -147,7 +147,7 @@ export default function Component() {
   return (
     <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-gray-100 overflow-x-hidden">
       <ParallaxBackground />
-      <nav className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4 bg-white/80 dark:bg-black/80 backdrop-blur-md">
+      <nav className="fixed top-0 left-0 right-0 z-50 f*lex justify-between items-center p-4 bg-white/80 dark:bg-black/80 backdrop-blur-md">
         <Logo />
         <div className="flex items-center space-x-4">
           {['home', 'about', 'projects', 'contact'].map((section) => (
