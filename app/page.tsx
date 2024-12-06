@@ -2,22 +2,24 @@
 
 import React, { useState, useEffect, useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import Image from 'next/image'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Moon, Sun, ArrowUp, Github, Linkedin, Mail, ExternalLink } from 'lucide-react'
-import { useTheme } from "next-themes" 
-import Image, { StaticImageData } from 'next/image'
-// import {
-//   DropdownMenu,
-//   DropdownMenuContent,
-//   DropdownMenuItem,
-//   DropdownMenuTrigger,
-// } from "@/components/ui/dropdown-menu"
-import profile from "../app/images/profile.img-removebg-preview.png"
+import { Menu, ArrowUp, Github, Linkedin, Mail, ExternalLink } from 'lucide-react'
 import { MdWhatsapp } from 'react-icons/md'
-import codify from "../app/images/Screenshot 2024-11-28 225632.png"
-import portfolio from "../app/images/Screenshot 2024-11-28 230533.png"
-import ecommerce from "../app/images/ecommerce.jpeg"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+// Ensure these imports are correct and the files exist
+import profile from '../app/images/profile.img-removebg-preview.png'
+import codify from '../app/images//Screenshot 2024-11-28 225632.png'
+import portfolio from '../app/images//Screenshot 2024-11-28 230533.png'
+import ecommerce from '../app/images//ecommerce.jpeg'
+
 const Logo = () => (
   <motion.div
     className="flex items-center space-x-2"
@@ -28,7 +30,9 @@ const Logo = () => (
     <div className="w-10 h-10 bg-sky-500 dark:bg-sky-400 rounded-full flex items-center justify-center">
       <span className="text-white font-bold text-xl">C</span>
     </div>
-    <span className="text-2xl font-semibold text-sky-500 dark:text-sky-400 max-sm:hidden">Code With Caleb</span>
+    <span className="text-2xl font-semibold text-sky-500 dark:text-sky-400 max-sm:hidden">
+      Code With Caleb
+    </span>
   </motion.div>
 )
 
@@ -56,10 +60,18 @@ const ParallaxBackground = () => {
   )
 }
 
-const ProjectCard = ({ title, description, image, link }: { title: string; description: string; image: StaticImageData; link: string }) => (
+const ProjectCard = ({ title, description, image, link }: { title: string; description: string; image: any; link: string }) => (
   <Card className="overflow-hidden project-card group">
     <div className="relative overflow-hidden">
-      <Image src={image} alt={title} className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110" />
+      {image && (
+        <Image 
+          src={image} 
+          alt={title} 
+          width={400} 
+          height={200} 
+          className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110" 
+        />
+      )}
       <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <Button variant="secondary" size="sm" asChild>
           <a href={link} target="_blank" rel="noopener noreferrer" className="flex items-center">
@@ -76,9 +88,7 @@ const ProjectCard = ({ title, description, image, link }: { title: string; descr
 )
 
 const SkillsShowcase = () => {
-  const skills = [
-    'React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Node.js', 'MongoDB'
-  ]
+  const skills = ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Node.js', 'MongoDB']
 
   return (
     <div className="mt-12">
@@ -101,7 +111,6 @@ const SkillsShowcase = () => {
 
 export default function Component() {
   const [activeSection, setActiveSection] = useState('home')
-  const { setTheme } = useTheme()
   const sectionsRef = useRef<{ [key: string]: React.RefObject<HTMLElement> }>({
     home: useRef(null),
     about: useRef(null),
@@ -118,7 +127,7 @@ export default function Component() {
 
     const observerCallback: IntersectionObserverCallback = (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && entry.target.id) {
           setActiveSection(entry.target.id)
         }
       })
@@ -147,20 +156,37 @@ export default function Component() {
   return (
     <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-gray-100 overflow-x-hidden">
       <ParallaxBackground />
-      <nav className="fixed top-0 left-0 right-0 z-50 f*lex justify-between items-center p-4 bg-white/80 dark:bg-black/80 backdrop-blur-md">
+      <nav className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4 bg-white/80 dark:bg-black/80 backdrop-blur-md">
         <Logo />
         <div className="flex items-center space-x-4">
-          {['home', 'about', 'projects', 'contact'].map((section) => (
-            <Button
-              key={section}
-              variant="ghost"
-              size="sm"
-              onClick={() => scrollToSection(section)}
-              className={activeSection === section ? 'text-sky-500' : ''}
-            >
-              {section.charAt(0).toUpperCase() + section.slice(1)}
-            </Button>
-          ))}
+          <div className="hidden md:flex space-x-4">
+            {['home', 'about', 'projects', 'contact'].map((section) => (
+              <Button
+                key={section}
+                variant="ghost"
+                size="sm"
+                onClick={() => scrollToSection(section)}
+                className={activeSection === section ? 'text-sky-500' : ''}
+              >
+                {section.charAt(0).toUpperCase() + section.slice(1)}
+              </Button>
+            ))}
+          </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild className="md:hidden">
+              <Button variant="outline" size="icon">
+                <Menu className="h-[1.2rem] w-[1.2rem]" />
+                <span className="sr-only">Toggle menu</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {['home', 'about', 'projects', 'contact'].map((section) => (
+                <DropdownMenuItem key={section} onSelect={() => scrollToSection(section)}>
+                  {section.charAt(0).toUpperCase() + section.slice(1)}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </nav>
 
@@ -184,7 +210,7 @@ export default function Component() {
                 Ashele Caleb Olusegun
               </h1>
               <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400">
-                Frontend Developer, UI/UX Designer & Fullstack Enthusiast.
+                Frontend Developer, UI/UX Designer & Fullstack Enthusiast
               </p>
               <Button 
                 onClick={() => scrollToSection('projects')} 
@@ -247,13 +273,13 @@ export default function Component() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             <ProjectCard
               title="E-commerce Platform"
-              description="A full-featured online store built with Godaddy , a no-code e-commerce website builder."
+              description="A full-featured online store built with Godaddy, a no-code e-commerce website builder."
               image={ecommerce}
               link="https://ladrac.com"
             />
             <ProjectCard
               title="An online coding Platform"
-              description="An online coding platform for Html,Css,Javascript,Typescript,Tailwindcss."
+              description="An online coding platform for Html, Css, Javascript, Typescript, Tailwindcss."
               image={codify}
               link="https://just-codify.web.app"
             />
